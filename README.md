@@ -1,27 +1,5 @@
 # Lancer l'Application Streamlit avec Azure Functions
 
-## Vue d'Ensemble
-
-L'application Streamlit `app_st.py` utilise maintenant l'API Azure Functions au lieu de charger les données localement. C'est une architecture serverless complète !
-
-```
-┌─────────────────────┐
-│  Streamlit (UI)     │  ← Interface utilisateur web
-└──────────┬──────────┘
-           │ HTTP Requests
-           ▼
-┌─────────────────────┐
-│ Azure Functions     │  ← API Serverless
-│ - /api/health       │
-│ - /api/users        │
-│ - /api/recommend    │
-└──────────┬──────────┘
-           │
-           ▼
-┌─────────────────────┐
-│ Azure Blob Storage  │  ← Données
-└─────────────────────┘
-```
 
 ## Option 1: Utiliser l'API Azure (Recommandé)
 
@@ -83,20 +61,8 @@ cd ../api
 streamlit run app_st.py
 ```
 
-## Fonctionnalités
 
-### Interface Streamlit
-- ✅ Connexion automatique à l'API Azure
-- ✅ Affichage du statut de l'API (connectée/déconnectée)
-- ✅ Métriques en temps réel (utilisateurs, articles, interactions)
-- ✅ Sélection d'utilisateur par ID ou aléatoire
-- ✅ Paramétrage du nombre de recommandations (1-20)
-- ✅ Affichage des résultats avec scores et métadonnées
-- ✅ Statistiques utilisateur
-- ✅ Liste complète des utilisateurs
-- ✅ Configuration de l'URL API dans l'interface
-
-### Endpoints Utilisés
+## Endpoints Utilisés
 
 L'application appelle 3 endpoints de l'API :
 
@@ -124,42 +90,7 @@ export API_URL="https://func-recommender-api.azurewebsites.net"
 export API_URL="http://localhost:7071"
 ```
 
-### Fichier .streamlit/config.toml (Optionnel)
 
-Créez `.streamlit/config.toml` pour personnaliser :
-
-```toml
-[theme]
-primaryColor = "#0078D4"  # Azure blue
-backgroundColor = "#FFFFFF"
-secondaryBackgroundColor = "#F0F2F6"
-
-[server]
-port = 8501
-enableCORS = false
-```
-
-## Avantages de cette Architecture
-
-### ✅ Serverless Complet
-- Streamlit : Interface utilisateur
-- Azure Functions : API backend
-- Azure Blob Storage : Données
-
-### ✅ Séparation des Préoccupations
-- Frontend (Streamlit) et Backend (Azure Functions) indépendants
-- Peut déployer chaque partie séparément
-- L'API peut être utilisée par d'autres clients
-
-### ✅ Scalabilité
-- Streamlit peut être déployé sur Azure Container Apps
-- Azure Functions scale automatiquement
-- Pas de gestion d'infrastructure
-
-### ✅ Développement Local Facile
-- Tester l'API localement avec `func start`
-- Tester Streamlit localement
-- Changer l'URL de l'API facilement
 
 
 
